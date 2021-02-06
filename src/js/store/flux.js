@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			planets: [],
 			vehicles: [],
-			people: []
+			people: [],
+			favorites: []
 		},
 		actions: {
 			getData: type => {
@@ -24,6 +25,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => {
 						if (type === "planets") {
 							setStore({ planets: result.results });
+						}
+						if (type === "people") {
+							setStore({ people: result.results });
+						}
+						if (type === "vehicles") {
+							setStore({ vehicles: result.results });
 						}
 					})
 					.catch(error => console.log("error", error));
@@ -37,6 +44,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getPeople: () => {
 				getActions().getData("people");
 			},
+			addFavorite: name => {
+				const store = getStore();
+				let verifyFavorite = store.favorites.includes(name);
+				if (verifyFavorite === false) {
+					var favs = store.favorites.concat(name);
+					setStore({ favorites: favs });
+				}
+			},
+			deleteFavorite: name => {
+				const store = getStore();
+				const newList = store.favorites.filter(item => item !== name);
+				setStore({ favorites: newList });
+			},
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
