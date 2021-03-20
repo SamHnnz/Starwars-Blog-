@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 import { Card, CardGroup, CardDeck, ListGroup, Container } from "react-bootstrap";
 import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap-buttons";
+import "../../styles/index.scss";
 
 export const Cards = props => {
 	const { store, actions } = useContext(Context);
@@ -29,48 +31,25 @@ export const Cards = props => {
 							{props.thirdData}
 						</Card.Text>
 					</Card.Body>
-					<Button variant="primary" className="btn btn-warning" style={{ width: "4rem", margin: "20px" }}>
-						<i onClick={e => actions.addFavorite(props.title)} className="fa fa-heart" aria-hidden="true" />
-					</Button>
+					<div className="hola d-flex justify-content-between">
+						<Button
+							variant="warning"
+							className="btn btn-warning addfav"
+							onClick={e => actions.addFavorite(props.title)}>
+							<i className="fa fa-heart" aria-hidden="true" />
+						</Button>
+						<Link to="/planets">
+							<Button
+								variant="success"
+								className="btn btn-success learn-more"
+								onClick={e => actions.addFavorite(props.title)}>
+								Learn more
+							</Button>
+						</Link>
+					</div>
 				</Card>
 			</CardDeck>
 		</div>
-		// <div className="container-fluid">
-		// 	<div className="scrolling-wrapper">
-		// 		<div className="card m-2 col-3 card-block">
-		// 			<img
-		// 				className="card-img-top"
-		// 				src="https://www.thesneakerone.com/18709-large_default/stance-empire-star-wars-m545d17emp-gry.jpg"
-		// 				alt="Card image cap"
-		// 			/>
-		// 			<div className="card-body">
-		// 				<h5 className="card-title">{props.title}</h5>
-		// 				<p classNameName="card-text">
-		// 					{props.firstTitle}
-		// 					{props.firstData}
-		// 				</p>
-		// 				<p classNameName="card-text">
-		// 					{props.secondTitle}
-		// 					{props.secondData}
-		// 				</p>
-		// 				<p classNameName="card-text">
-		// 					{props.thirdTitle}
-		// 					{props.thirdData}
-		// 				</p>
-		// 				<a href="#" className="btn btn-primary">
-		// <i
-		// 	onClick={e => actions.addFavorite(props.title)}
-		// 	className="fa fa-heart"
-		// 	aria-hidden="true"
-		// />
-		// 				</a>
-		// 				<a href="#" className="btn btn-warning">
-		// 					Learn more!
-		// 				</a>
-		// 			</div>
-		// 		</div>
-		// 	</div>
-		// </div>
 	);
 };
 
